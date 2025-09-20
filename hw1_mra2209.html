@@ -370,7 +370,8 @@ display: none;
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>library(moderndive)</code></pre>
+<pre class="r"><code>library(tibble)
+library(moderndive)</code></pre>
 </div>
 <div id="loading-data" class="section level2">
 <h2>Loading data</h2>
@@ -438,6 +439,20 @@ periodic shifts due to weather fronts or the time of day. r</p>
 <div id="saving-the-plot-using-ggsave" class="section level2">
 <h2>Saving the plot using ggsave()</h2>
 <pre class="r"><code>ggsave(&quot;weather_plot.png&quot;, plot = weather_plot, width = 8, height = 5 )</code></pre>
+</div>
+<div id="creating-a-data-frame-for-problem-2" class="section level2">
+<h2>Creating a data frame for Problem 2</h2>
+<pre class="r"><code>my_df &lt;- tibble (
+  
+  sample_nums = rnorm(10),
+  
+  is_positive = sample_nums &gt; 0,
+  
+  char_vec = sample(letters, 10),
+  
+  factor_vec = factor(sample(c(&quot;Level1&quot;, &quot;Level2&quot;, &quot;Level3&quot;), 10, replace = TRUE))
+
+  )</code></pre>
 </div>
 
 
