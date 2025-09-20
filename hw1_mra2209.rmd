@@ -1,0 +1,80 @@
+---
+title: "hw1_mra2209"
+author: "Maya Arnott"
+date: "2025-09-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading packages
+
+```{r}
+library(tidyverse)
+library(moderndive)
+```
+
+## Loading data
+
+```{r}
+data("early_january_weather")
+```
+
+The data set contains hourly meteorological data for the airports LGA, JFK, and EWR for the month of January 2013. It contains the following variables:  
+
+  - **origin**, indicating the weather station.  
+  
+  - **year**, month, day, hour, indicating the time of recording.  
+  
+  - **temp**, dewp, indicating the temperature and dewpoint (in F).  
+  
+  - **humid**, indicating the relative humidity.  
+  
+  - **wind_dir**, **wind_speed**, **wind_gust**, indicating the wind            direction (in degrees), speed and gust speed (in mph).  
+  
+  - **precip**, indicating the precipitation (in inches). 
+  
+  - **pressure**, indicating the sea level pressure (in millibars).
+  
+  - **visib**, indicating the visibility (in miles).  
+  
+  - **time_hour**, indicating the date and hour of the recording.
+  
+The data set has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. The mean temperature is `r early_january_weather |> summarize(mean_temp = mean(temp, na.rm = TRUE)) |> pull(mean_temp) |> round(2)` degrees Fahrenheit. 
+
+
+## Creating a Scatter Plot
+```{r}
+
+weather_plot <- early_january_weather |> 
+  ggplot( aes ( x = time_hour, y = temp, color = humid )) +
+  geom_point(alpha = 0.7) + 
+  labs(
+      title = "Temperature over Time, Colored by Humidity",
+      x = "Time (date & hour)",
+      y = "Temperature (°F)",
+      color = "Humidity"
+  ) + 
+  theme_minimal() + 
+  scale_color_gradient(low = "blue", high = "red") + 
+  theme(plot.title = element_text( 
+    hjust = 0.5,
+    face = "bold",
+    size = 14
+    )
+  )
+
+weather_plot
+```
+
+
+## Saving the plot using ggsave()
+
+```{r}
+
+ggsave("weather_plot.png", plot = weather_plot, width = 8, height = 5 )
+
+```
+
