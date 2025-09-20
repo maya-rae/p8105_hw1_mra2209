@@ -454,6 +454,31 @@ periodic shifts due to weather fronts or the time of day. r</p>
 
   )</code></pre>
 </div>
+<div id="taking-the-mean-of-each-column" class="section level2">
+<h2>Taking the mean of each column</h2>
+<pre class="r"><code># numerical column of size 10
+mean(my_df |&gt; pull(sample_nums), na.rm = TRUE)</code></pre>
+<pre><code>## [1] -0.1430784</code></pre>
+<pre class="r"><code># logical column where TRUE = 1 and FALSE = 0
+mean(my_df |&gt; pull(is_positive), na.rm = TRUE)</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre class="r"><code># character column
+mean(my_df |&gt; pull(char_vec))</code></pre>
+<pre><code>## Warning in mean.default(pull(my_df, char_vec)): argument is not numeric or
+## logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code># factor column
+mean(my_df |&gt; pull(factor_vec))</code></pre>
+<pre><code>## Warning in mean.default(pull(my_df, factor_vec)): argument is not numeric or
+## logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>I am able to pull the mean of sample_nums and is_positive because the
+numbers in sample_nums are numeric and in is_positive the logical values
+are being treated as binary (1/0). However, the means of char_vec and
+factor_vec cannot be pulled because char_vec contains letters, which
+cannot be averaged, and factor_vec are being treated as cateogies, which
+can also not be averaged.</p>
+</div>
 
 
 
